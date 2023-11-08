@@ -25,7 +25,7 @@ const Navbar = () => {
           Home
         </NavLink>
         <NavLink
-          to="about"
+          to="/about"
           className={({ isActive }) =>
             isActive ? "text-[var(--text1)]" : "text-[var(--text2)]"
           }
@@ -33,7 +33,7 @@ const Navbar = () => {
           About
         </NavLink>
         <NavLink
-          to="signIn"
+          to="/signin"
           className={({ isActive }) =>
             isActive ? "text-[var(--text1)]" : "text-[var(--text2)]"
           }

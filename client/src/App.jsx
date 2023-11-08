@@ -1,14 +1,22 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import { Route, Routes } from "react-router-dom";
+import Loader from "./components/Loader";
+
+const SignIn = lazy(() => import("./pages/SignIn"));
+const SignUp = lazy(() => import("./pages/SignUp"));
 const App = () => {
   return (
     <div className="max-w-[2100px] mx-auto xll:text-[40px]">
       <Navbar />
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-      </Routes>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 };
