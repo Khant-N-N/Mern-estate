@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 
 const Account = () => {
   const { currentUser } = useSelector((state) => state.user);
-  console.log(currentUser);
   return (
     <div className="m-auto w-[90%] max-w-[500px] h-[80vh] py-7">
       <form className="flex justify-center items-center flex-col gap-4 text-[16px]">

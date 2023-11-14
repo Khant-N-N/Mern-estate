@@ -1,7 +1,7 @@
-import React from "react";
 import { Link, NavLink } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 const Navbar = () => {
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <nav className="flex justify-around items-center py-3 bg-[var(--sec)]">
       <Link to="/" className="text-[var(--text1)]">
@@ -32,14 +32,24 @@ const Navbar = () => {
         >
           About
         </NavLink>
-        <NavLink
-          to="/signin"
-          className={({ isActive }) =>
-            isActive ? "text-[var(--text1)]" : "text-[var(--text2)]"
-          }
-        >
-          Sign In
-        </NavLink>
+        {currentUser ? (
+          <Link to="/account">
+            <img
+              src={currentUser.avatar}
+              alt="profile"
+              className="w-8 h-8 rounded-full"
+            />
+          </Link>
+        ) : (
+          <NavLink
+            to="/signin"
+            className={({ isActive }) =>
+              isActive ? "text-[var(--text1)]" : "text-[var(--text2)]"
+            }
+          >
+            Sign In
+          </NavLink>
+        )}
       </div>
     </nav>
   );
