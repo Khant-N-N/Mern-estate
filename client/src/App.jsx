@@ -1,9 +1,10 @@
-import React, { Suspense, lazy } from "react";
+import { Suspense, lazy } from "react";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import { Route, Routes } from "react-router-dom";
 import Loader from "./components/Loader";
 
+const Account = lazy(() => import("./pages/Account"));
 const SignIn = lazy(() => import("./pages/SignIn"));
 const SignUp = lazy(() => import("./pages/SignUp"));
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
           <Route exact path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/account" element={<Account />} />
         </Routes>
       </Suspense>
     </div>

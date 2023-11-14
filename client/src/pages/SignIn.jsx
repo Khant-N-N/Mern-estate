@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signInFailure, signInStart, signInSuccess } from "../features/user";
 import { Link, useNavigate } from "react-router-dom";
+import OAuth from "../components/OAuth";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
@@ -19,8 +20,8 @@ const SignIn = () => {
 
   const handleDemo = () => {
     setFormData({
-      email: "sad@gmail.com",
-      password: "123456",
+      email: "user@demo.com",
+      password: "user123!@#",
     });
     handleSubmit();
   };
@@ -85,12 +86,7 @@ const SignIn = () => {
       >
         {loading ? "Loading..." : "Sign in"}
       </button>
-      <button
-        type="button"
-        className="w-[90%] p-3 rounded-md bg-[#b81b1b] hover:bg-[#b81b1b]/90 uppercase text-white"
-      >
-        Continue with google
-      </button>
+      <OAuth />
       <p>
         Don&apos;t Have an account?{" "}
         <Link to="/signup" className="text-[#0055ff] mx-2">
