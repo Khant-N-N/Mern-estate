@@ -89,6 +89,17 @@ const Account = () => {
     }
   };
 
+  const signoutUser = async () => {
+    try {
+      const response = await fetch("/api/auth/signout");
+      const data = await response.json();
+      if (data.success === false) return dispatch(signInFailure(data.message));
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="m-auto w-[90%] max-w-[500px] h-[80vh] py-7">
       <form
@@ -163,7 +174,10 @@ const Account = () => {
           >
             Delete Account
           </span>{" "}
-          <span className="text-red-500 text-[15px] cursor-pointer">
+          <span
+            onClick={signoutUser}
+            className="text-red-500 text-[15px] cursor-pointer"
+          >
             Sign out
           </span>
         </p>
