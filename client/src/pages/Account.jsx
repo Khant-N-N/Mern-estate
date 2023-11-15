@@ -1,18 +1,77 @@
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { app } from "../firebase";
 
 const Account = () => {
+  const fileRef = useRef();
   const { currentUser } = useSelector((state) => state.user);
+  const [file, setFile] = useState(undefined);
+  const [formData, setFormData] = useState({});
+  const [filePercent, setfilePercent] = useState(null);
+  const [uploadError, setUploadError] = useState(null);
+  console.log(formData);
+  useEffect(() => {
+    if (file) {
+      handleFileUpload(file);
+    }
+  }, [file]);
+  const handleFileUpload = (file) => {
+    const storage = getStorage(app);
+    const fileName = new Date().getTime() + file.name;
+    const storageRef = ref(storage, fileName);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setfilePercent(Math.round(progress));
+      },
+      (error) => {
+        setUploadError(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setFormData({ ...formData, avatar: downloadURL });
+        });
+      }
+    );
+  };
+
   return (
     <div className="m-auto w-[90%] max-w-[500px] h-[80vh] py-7">
       <form className="flex justify-center items-center flex-col gap-4 text-[16px]">
         <h4 className="text-center font-bold text-[22px]">Profile</h4>
         <div>
+          <input
+            onChange={(e) => setFile(e.target.files[0])}
+            type="file"
+            hidden
+            ref={fileRef}
+            accept="image/*"
+          />
           <img
-            src={currentUser?.avatar}
+            onClick={() => fileRef.current.click()}
+            src={formData.avatar || currentUser?.avatar}
             alt="profile photo"
-            className="w-20 h-20 rounded-full"
+            className="w-20 h-20 rounded-full object-cover cursor-pointer self-center"
           />
         </div>
+        <p className="text-red-700">{uploadError && "Failed to upload"}</p>
+        <p>
+          {filePercent > 0 && filePercent < 100
+            ? `Uploading ${filePercent}%`
+            : filePercent === 100
+            ? "Upload Completed"
+            : ""}
+        </p>
         <input
           className="w-[90%] p-3 rounded"
           type="text"
