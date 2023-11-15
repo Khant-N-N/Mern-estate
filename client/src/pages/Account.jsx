@@ -8,7 +8,12 @@ import {
 } from "firebase/storage";
 import { app } from "../firebase";
 import { useNavigate } from "react-router-dom";
-import { signInStart, signInSuccess, signInFailure } from "../features/user";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+  deleteUserSuccess,
+} from "../features/user";
 
 const Account = () => {
   const fileRef = useRef();
@@ -68,6 +73,19 @@ const Account = () => {
     } else {
       dispatch(signInSuccess(data));
       navigate("/");
+    }
+  };
+
+  const deleteUser = async () => {
+    try {
+      const response = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "delete",
+      });
+      const data = await response.json();
+      if (data.success === false) return dispatch(signInFailure(data.message));
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -139,7 +157,12 @@ const Account = () => {
           Create Listing
         </button>
         <p className="flex justify-between items-center w-[90%]">
-          <span className="text-red-500 text-[15px]">Delete Account</span>{" "}
+          <span
+            onClick={deleteUser}
+            className="text-red-500 text-[15px] cursor-pointer"
+          >
+            Delete Account
+          </span>{" "}
           <span className="text-red-500 text-[15px]">Sign out</span>
         </p>
       </form>
