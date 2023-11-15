@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getDownloadURL,
   getStorage,
@@ -7,15 +7,19 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../firebase";
+import { useNavigate } from "react-router-dom";
+import { signInStart, signInSuccess, signInFailure } from "../features/user";
 
 const Account = () => {
   const fileRef = useRef();
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, loading, error } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
   const [formData, setFormData] = useState({});
   const [filePercent, setfilePercent] = useState(null);
   const [uploadError, setUploadError] = useState(null);
-  console.log(formData);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     if (file) {
       handleFileUpload(file);
@@ -45,10 +49,36 @@ const Account = () => {
     );
   };
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(signInStart());
+    const response = await fetch(`api/user/update/${currentUser?._id}`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await response.json();
+    if (data.success === false) {
+      dispatch(signInFailure(data.message));
+    } else {
+      dispatch(signInSuccess(data));
+      navigate("/");
+    }
+  };
+
   return (
     <div className="m-auto w-[90%] max-w-[500px] h-[80vh] py-7">
-      <form className="flex justify-center items-center flex-col gap-4 text-[16px]">
+      <form
+        onSubmit={handleSubmit}
+        className="flex justify-center items-center flex-col gap-4 text-[16px]"
+      >
         <h4 className="text-center font-bold text-[22px]">Profile</h4>
+        <p className="text-red-700">{error && error}</p>
         <div>
           <input
             onChange={(e) => setFile(e.target.files[0])}
@@ -66,34 +96,46 @@ const Account = () => {
         </div>
         <p className="text-red-700">{uploadError && "Failed to upload"}</p>
         <p>
-          {filePercent > 0 && filePercent < 100
+          {filePercent < 100 && filePercent > 0
             ? `Uploading ${filePercent}%`
             : filePercent === 100
             ? "Upload Completed"
             : ""}
         </p>
         <input
+          onChange={handleChange}
           className="w-[90%] p-3 rounded"
           type="text"
           name="username"
+          defaultValue={currentUser.username}
           placeholder="Username"
         />
         <input
+          onChange={handleChange}
           className="w-[90%] p-3 rounded"
           type="email"
           name="email"
+          defaultValue={currentUser.email}
           placeholder="email"
         />
         <input
+          onChange={handleChange}
           className="w-[90%] p-3 rounded"
           type="password"
           name="password"
           placeholder="password"
         />
-        <button className="w-[90%] p-3 rounded bg-[#324054] hover:bg-[#324054]/90 uppercase text-white">
-          UPDATE
+        <button
+          disabled={loading}
+          type="submit"
+          className="w-[90%] p-3 rounded bg-[#324054] hover:bg-[#324054]/90 uppercase text-white"
+        >
+          {loading ? "loading..." : "UPDATE"}
         </button>
-        <button className="w-[90%] p-3 rounded bg-[#116831] hover:bg-[#116831]/90 uppercase text-white">
+        <button
+          type="button"
+          className="w-[90%] p-3 rounded bg-[#116831] hover:bg-[#116831]/90 uppercase text-white"
+        >
           Create Listing
         </button>
         <p className="flex justify-between items-center w-[90%]">
