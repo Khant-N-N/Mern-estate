@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routes/user.route.js"
 import authRouter from "./routes/auth.route.js"
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 const app = express();
@@ -12,6 +13,8 @@ mongoose.connect(process.env.MONGO).then(() => {
 }).catch((err) => {
     console.log("error connecting mongodb", err)
 })
+
+app.use(cookieParser());
 
 app.use(express.json()); // by default json is not allow to the server, so allow json as input
 app.listen(3001, () => {
