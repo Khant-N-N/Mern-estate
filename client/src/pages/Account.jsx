@@ -163,7 +163,9 @@ const Account = () => {
           >
             Delete Account
           </span>{" "}
-          <span className="text-red-500 text-[15px]">Sign out</span>
+          <span className="text-red-500 text-[15px] cursor-pointer">
+            Sign out
+          </span>
         </p>
       </form>
     </div>
