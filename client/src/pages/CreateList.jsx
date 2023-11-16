@@ -1,8 +1,13 @@
 import { useState } from "react";
+import ImageUpload from "../components/ImageUpload";
 
 const CreateList = () => {
+  const [formData, setFormData] = useState({
+    imageUrls: [],
+  });
   const [discount, setDiscount] = useState(false);
   const [isRent, setIsRent] = useState(false);
+
   return (
     <div className="m-auto max-w-[1000px]">
       <h2 className="text-center text-[23px] font-bold p-3">
@@ -115,27 +120,7 @@ const CreateList = () => {
           )}
         </div>
         <div className="md:w-[50%] flex flex-col gap-5 items-center">
-          <label htmlFor="images" className="w-[90%]">
-            Images:{" "}
-            <span className="text-[var(--text2)]">
-              The first image will be the cover (max 6)
-            </span>
-          </label>
-          <div className="w-[90%] flex">
-            <input
-              type="file"
-              name="images"
-              accept="image/*"
-              multiple
-              className="border border-slate-500 p-2 mr-2 rounded w-auto"
-            />
-            <button
-              type="button"
-              className="p-3 border text-green-600 hover:bg-green-600 hover:text-white border-green-600 rounded"
-            >
-              UPLOAD
-            </button>
-          </div>
+          <ImageUpload formData={formData} setFormData={setFormData} />
           <button className="w-[90%] p-3 rounded bg-[var(--text1)] hover:opacity-90 disabled:opacity-80 text-white">
             CREATE LISTING
           </button>
