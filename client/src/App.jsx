@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import { Route, Routes } from "react-router-dom";
 import Loader from "./components/Loader";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CreateList from "./pages/CreateList";
 
 const Account = lazy(() => import("./pages/Account"));
 const SignIn = lazy(() => import("./pages/SignIn"));
@@ -22,6 +23,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <Account />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/createlist"
+            element={
+              <ProtectedRoute>
+                <CreateList />
               </ProtectedRoute>
             }
           />

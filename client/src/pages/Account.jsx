@@ -7,7 +7,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../firebase";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   signInStart,
   signInSuccess,
@@ -161,12 +161,12 @@ const Account = () => {
         >
           {loading ? "loading..." : "UPDATE"}
         </button>
-        <button
-          type="button"
-          className="w-[90%] p-3 rounded bg-[#116831] hover:bg-[#116831]/90 uppercase text-white"
+        <Link
+          to="/createlist"
+          className="w-[90%] p-3 rounded text-center bg-[#116831] hover:bg-[#116831]/90 uppercase text-white"
         >
           Create Listing
-        </button>
+        </Link>
         <p className="flex justify-between items-center w-[90%]">
           <span
             onClick={deleteUser}
