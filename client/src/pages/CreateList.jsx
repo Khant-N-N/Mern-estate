@@ -52,7 +52,7 @@ const CreateList = () => {
       const data = await response.json();
       if (data.success === false) setError(data.message);
       setLoading(false);
-      setNoti("User Created Successfully.");
+      setNoti("Listing Created Successfully.");
       setFormData(initialValue);
     } catch (error) {
       setError(error.message);
