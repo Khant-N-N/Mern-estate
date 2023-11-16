@@ -11,10 +11,12 @@ export const createlisting = async (req, res, next) => {
 }
 
 export const deleteUserListings = async (req, res, next) => {
-    console.log(req)
-    if (req.user.id !== req.params.id) return next(errorHandler(401, "Sign in First to delete listings"))
+    const listing = await Listing.findById(req.params.id);
+    if (!listing) return next(errorHandler(404, "listing not found!"))
+    if (req.user.id !== listing.userRef) return next(errorHandler(401, "Sign in First to delete listings"))
     try {
-        await Listing.findByIdAndDelete()
+        await Listing.findByIdAndDelete(req.params.id);
+        res.status(200).json("List has been deleted")
     } catch (error) {
         next(error)
     }
