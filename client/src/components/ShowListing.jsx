@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 
 const ShowListing = () => {
   const [lists, setLists] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -16,9 +18,32 @@ const ShowListing = () => {
       }
     };
     getListing();
-  }, [currentUser]);
+  }, [currentUser, lists]);
+
+  const handleDelete = async (id) => {
+    try {
+      setLoading(true);
+      setError(false);
+      const response = await fetch(`api/listing/delete/${id}`, {
+        method: "delete",
+      });
+      const data = await response.json();
+      if (data.success === false) setError("Error deleting data.");
+      setLoading(false);
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+    }
+  };
   return (
     <div>
+      <h3 className="text-center text-2xl font-semibold my-5">Your Listings</h3>
+      {error && <p className="text-red-500 text-[16px]">{error}</p>}
+      {lists.length === 0 && (
+        <p className="text-center text-gray-400 text-[16px] h-28 flex items-center justify-center">
+          Your list is empty
+        </p>
+      )}
       {lists.map((list) => (
         <div
           key={list._id}
@@ -31,7 +56,13 @@ const ShowListing = () => {
           />
           <p>{list.name}</p>
           <div className="flex flex-col gap-2 text-[16px]">
-            <button className="text-red-500 hover:opacity-70">DELETE</button>
+            <button
+              disabled={loading}
+              onClick={() => handleDelete(list._id)}
+              className="text-red-500 hover:opacity-70"
+            >
+              DELETE
+            </button>
             <button className="text-green-500 hover:opacity-70">EDIT</button>
           </div>
         </div>
