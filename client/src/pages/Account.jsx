@@ -14,6 +14,7 @@ import {
   signInFailure,
   deleteUserSuccess,
 } from "../features/user";
+import ShowListing from "../components/ShowListing";
 
 const Account = () => {
   const fileRef = useRef();
@@ -22,6 +23,7 @@ const Account = () => {
   const [formData, setFormData] = useState({});
   const [filePercent, setfilePercent] = useState(null);
   const [uploadError, setUploadError] = useState(null);
+  const [showList, setShowList] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -182,6 +184,14 @@ const Account = () => {
           </span>
         </p>
       </form>
+      <p
+        onClick={() => setShowList(!showList)}
+        className="text-green-500 text-center my-3 cursor-pointer hover:opacity-70 text-[16px]"
+      >
+        Show Listings
+      </p>
+
+      {showList && <ShowListing />}
     </div>
   );
 };

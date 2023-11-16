@@ -20,7 +20,7 @@ const initialValue = {
 const CreateList = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [formData, setFormData] = useState(initialValue);
-  console.log(formData);
+
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [noti, setNoti] = useState(false);
