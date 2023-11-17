@@ -21,3 +21,13 @@ export const deleteUserListings = async (req, res, next) => {
         next(error)
     }
 }
+
+export const getDetail = async (req, res, next) => {
+    const list = await Listing.findById(req.params.id);
+    if (!list) return next(errorHandler(404, "listing not found!"))
+    try {
+        res.status(201).json(list);
+    } catch (error) {
+        next(error)
+    }
+}
