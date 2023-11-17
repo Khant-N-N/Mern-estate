@@ -52,7 +52,7 @@ const EditList = () => {
       setLoading(false);
       if (data.success === false) return setError("Error Updating data");
       setNoti("List updated successfully");
-      navigate("/account");
+      navigate(`/listing/${id}`);
     } catch (error) {
       setError(error.message);
     }

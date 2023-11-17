@@ -59,7 +59,9 @@ const ShowListing = () => {
               alt="house"
               className="w-20 object-cover rounded"
             />
-            <p>{list.name}</p>
+            <Link to={`/listing/${list._id}`} className="hover:underline">
+              {list.name}
+            </Link>
             <div className="flex flex-col gap-2 text-[16px]">
               <button
                 disabled={loading}
