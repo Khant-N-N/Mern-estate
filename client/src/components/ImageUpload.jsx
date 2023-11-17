@@ -35,7 +35,13 @@ const ImageUpload = ({ formData, setFormData }) => {
           setUploadError(false);
           setUploadLoading(false);
         })
-        .catch(() => setUploadError("failed to upload images"));
+        .catch((err) => {
+          console.log(err);
+          setUploadError(
+            "failed to upload images/ Image size should be less than 3MB per one."
+          );
+          setUploadLoading(false);
+        });
     } else {
       setUploadError("You can only upload max 6 images per listing");
       setUploadLoading(false);
