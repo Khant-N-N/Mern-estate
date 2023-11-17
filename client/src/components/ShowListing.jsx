@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Loader from "./Loader";
 
 const ShowListing = () => {
   const [lists, setLists] = useState([]);
@@ -44,29 +46,38 @@ const ShowListing = () => {
           Your list is empty
         </p>
       )}
-      {lists.map((list) => (
-        <div
-          key={list._id}
-          className="flex justify-between items-center p-3 border shadow rounded mb-2"
-        >
-          <img
-            src={list.imageUrls[0]}
-            alt="house"
-            className="w-20 object-cover rounded"
-          />
-          <p>{list.name}</p>
-          <div className="flex flex-col gap-2 text-[16px]">
-            <button
-              disabled={loading}
-              onClick={() => handleDelete(list._id)}
-              className="text-red-500 hover:opacity-70"
-            >
-              DELETE
-            </button>
-            <button className="text-green-500 hover:opacity-70">EDIT</button>
+      {!lists ? (
+        <Loader />
+      ) : (
+        lists.map((list) => (
+          <div
+            key={list._id}
+            className="flex justify-between items-center p-3 border shadow rounded mb-2"
+          >
+            <img
+              src={list.imageUrls[0]}
+              alt="house"
+              className="w-20 object-cover rounded"
+            />
+            <p>{list.name}</p>
+            <div className="flex flex-col gap-2 text-[16px]">
+              <button
+                disabled={loading}
+                onClick={() => handleDelete(list._id)}
+                className="text-red-500 hover:opacity-70"
+              >
+                DELETE
+              </button>
+              <Link
+                to={`/editlist/${list._id}`}
+                className="text-green-500 hover:opacity-70"
+              >
+                EDIT
+              </Link>
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      )}
     </div>
   );
 };
