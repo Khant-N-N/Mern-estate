@@ -139,6 +139,7 @@ const EditList = () => {
                         [e.target.name]: !formData[e.target.name],
                       })
                     }
+                    checked={formData.parking}
                     type="checkbox"
                     name="parking"
                     className="w-5"
@@ -153,6 +154,7 @@ const EditList = () => {
                         [e.target.name]: !formData[e.target.name],
                       })
                     }
+                    checked={formData.furnished}
                     type="checkbox"
                     name="furnished"
                     className="w-5"
@@ -168,6 +170,7 @@ const EditList = () => {
                         [e.target.name]: !formData[e.target.name],
                       });
                     }}
+                    checked={formData.offer}
                     name="offer"
                     className="w-5"
                   />{" "}
