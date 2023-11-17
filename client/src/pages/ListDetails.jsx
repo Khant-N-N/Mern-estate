@@ -8,14 +8,18 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { Navigation } from "swiper/modules";
 import "swiper/css/bundle";
+import SendMessage from "../components/SendMessage";
+import { useSelector } from "react-redux";
 
 const ListDetails = () => {
   SwiperCore.use([Navigation]);
   const { id } = useParams();
+  const { currentUser } = useSelector((state) => state.user);
   const [detail, setDetail] = useState(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [copy, setCopy] = useState(false);
+  const [contact, setContact] = useState(false);
   console.log(detail);
   useEffect(() => {
     const getDetail = async () => {
@@ -137,6 +141,15 @@ const ListDetails = () => {
                 </p>
               )}
             </div>
+            {currentUser._id !== detail?.userRef && !contact && (
+              <button
+                onClick={() => setContact(!contact)}
+                className="p-3 bg-[var(--text2)] w-full rounded my-6 text-white hover:opacity-70 uppercase"
+              >
+                Contact landlord
+              </button>
+            )}
+            {contact && <SendMessage detail={detail} />}
           </div>
         </div>
       )}
