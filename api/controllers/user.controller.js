@@ -22,7 +22,7 @@ export const updateUser = async (req, res, next) => {
                 password: req.body.password,
                 avatar: req.body.avatar
             }
-        }, { new: true }) //make a new not the prev one
+        }, { new: true }) //to get a new updated one not the prev one
         const { password, ...rest } = updatedUser._doc
         res.status(200).json(rest)
     } catch (error) {
