@@ -31,3 +31,15 @@ export const getDetail = async (req, res, next) => {
         next(error)
     }
 }
+
+export const updateListing = async (req, res, next) => {
+    const list = await Listing.findById(req.params.id);
+    if (!list) return next(errorHandler(404, "listing not found!"))
+    if (req.user.id !== list.userRef) return next(errorHandler(401, "Sign in first to update listing"))
+    try {
+        const updateList = await Listing.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.status(201).json(updateList);
+    } catch (error) {
+        next(error)
+    }
+}
