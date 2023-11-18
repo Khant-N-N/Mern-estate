@@ -20,7 +20,7 @@ const ListDetails = () => {
   const [loading, setLoading] = useState(false);
   const [copy, setCopy] = useState(false);
   const [contact, setContact] = useState(false);
-  console.log(detail);
+
   useEffect(() => {
     const getDetail = async () => {
       try {

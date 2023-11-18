@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const SendMessage = ({ detail }) => {
   const [landlord, setLandlord] = useState(null);
-  const messageRef = useRef();
+  const messageRef = useRef("");
   useEffect(() => {
     const getUser = async () => {
       try {
