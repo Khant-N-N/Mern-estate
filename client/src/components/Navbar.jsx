@@ -11,23 +11,19 @@ const Navbar = () => {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
-    urlParams && setSearchTerm(urlParams.get("searchTerm"));
-  }, []);
+    urlParams.get("searchTerm") !== null &&
+      setSearchTerm(urlParams.get("searchTerm"));
+  }, [location.search]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (searchTerm === null) return;
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("searchTerm", searchTerm);
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
   };
-  const search = async () => {
-    try {
-      const response = await fetch(`/api/listing/getlist/`);
-      const data = await response.json();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   return (
     <nav className="flex justify-around items-center py-3 bg-[var(--sec)] z-40">
       <Link to="/" className="text-[var(--text1)]">
