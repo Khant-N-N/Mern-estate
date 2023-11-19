@@ -69,7 +69,9 @@ export const getListings = async (req, res, next) => {
 
         const sort = req.query.sort || "createdAt";
 
-        const order = req.query.sort || "desc";
+
+        const order = req.query.order || "desc";
+
 
         const getListing = await Listing.find({
             //option is for not care about upper/lower cases
