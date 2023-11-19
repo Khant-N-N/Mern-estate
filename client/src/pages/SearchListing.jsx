@@ -1,91 +1,107 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
 import { IoLocation } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SearchListing = () => {
-  const [searchData, setSearchData] = useState([
-    {
-      _id: "6557c305092fbcd96147d6f8",
-      name: "Wake me up",
-      description:
-        "Feeling my way through the darkness\nGuided by a beating heart\nI can't tell where the journey will end\nBut I know where to start\nThey tell me I'm too young to understand\nThey say I'm caught up in a dream\nWell life will pass me by if I don't open up my eyes\nWell that's fine by me\nSo wake me up when it's all over\nWhen I'm wiser and I'm older\nAll this time I was finding myself, and I\nDidn't know I was lost\nSo wake me up when it's all over\nWhen I'm wiser and I'm older\nAll this time I was finding myself, and I\nDidn't know I was lost\nI tried carrying the weight of the world\nBut I only have two hands\nHope I get the chance to travel the world\nBut I don't have any plans\nWish that I could stay forever this young\nNot afraid to close my eyes\nLife's a game made for everyone\nAnd love is a prize\nSo wake me up when it's all over\nWhen I'm wiser and I'm older\nAll this time I was finding myself, and I\nDidn't know I was lost\nSo wake me up when it's all over\nWhen I'm wiser and I'm older\nAll this time I was finding myself, and I\nI didn't know I was lost\nI didn't know I was lost\nI didn't know I was lost\nI didn't know I was lost\nI didn't know",
-      address: "23th, ayuu, shin da",
-      regularPrice: 200,
-      discountPrice: 1,
-      bathrooms: 2,
-      bedrooms: 4,
-      furnished: true,
-      parking: false,
-      type: "rent",
-      offer: false,
-      imageUrls: [
-        "https://firebasestorage.googleapis.com/v0/b/mern-estate-5b94a.appspot.com/o/1700250359851Cutty%20Flam%2C%20Monkey%20D.jpg?alt=media&token=72d75ace-5272-4b75-9753-e9d0960a991e",
-      ],
-      userRef: "6553b96714d1e263b200e06f",
-      createdAt: "2023-11-17T19:46:13.829Z",
-      updatedAt: "2023-11-17T19:46:13.829Z",
-      __v: 0,
-    },
-    {
-      _id: "6557b070f61628188a06abb6",
-      name: "scientist",
-      description:
-        "Come up to meet you, tell you I'm sorry\nYou don't know how lovely you are\nI had to find you, tell you I need you\nTell you I set you apart\nTell me your secrets and ask me your questions\nOh, let's go back to the start\nRunning in circles, coming up tails\nHeads on a science apart\nNobody said it was easy\nIt's such a shame for us to part\nNobody said it was easy\nNo one ever said it would be this hard\nOh, take me back to the start\nI was just guessing at numbers and figures\nPulling the puzzles apart\nQuestions of science, science and progress\nDo not speak as loud as my heart\nBut tell me you love me, come back and haunt me\nOh and I rush to the start\nRunning in circles, chasing our tails\nComing back as we are\nNobody said it was easy\nOh, it's such a shame for us to part\nNobody said it was easy\nNo one ever said it would be so hard\nI'm going back to the start",
-      address: "23th, shiin gan, Bassa",
-      regularPrice: 29091245,
-      discountPrice: 1,
-      bathrooms: 1,
-      bedrooms: 1,
-      furnished: true,
-      parking: true,
-      type: "sale",
-      offer: false,
-      imageUrls: [
-        "https://firebasestorage.googleapis.com/v0/b/mern-estate-5b94a.appspot.com/o/1700245590256Enel%20has%20a%20lightning%20hand.jfif?alt=media&token=e1c6604b-f888-48f6-be53-e5d0b3d360b1",
-        "https://firebasestorage.googleapis.com/v0/b/mern-estate-5b94a.appspot.com/o/1700245590259wallhaven-p9j9e3.jpg?alt=media&token=3bade35f-a4e2-4428-82c0-e2400bdd1303",
-      ],
-      userRef: "65550a6bd3093930a9d2a4aa",
-      createdAt: "2023-11-17T18:26:56.327Z",
-      updatedAt: "2023-11-17T18:26:56.327Z",
-      __v: 0,
-    },
-    {
-      _id: "6557ae89f61628188a06a56c",
-      name: "A na da that da war ",
-      description:
-        "Don't the water grow the trees\nDon't the moon pull the tide\nDon't the stars light the sky\nLike you need to light my life\nIf you need me anytime\nYou know I'm always right by your side\nSee I've never felt this love\nYou're the only thing that's on my mind\n\n[Pre-chorus:]\nYou don't understand how much you really mean to me\nI need you in my life\nYou're my necessity\nBut believe me you're everything\nThat just makes my world complete\nAnd my love is clear the only thing that I'll ever see\n\n[Chorus:]\nYou're all I ever need\nBaby, you're amazing\nYou're my angel come and save me\nYou're all I ever need\nBaby, you're amazing\nYou're my angel come and save me\n\nDon't the water grow the trees\nDon't the moon pull the tide\nDon't the stars light the sky\nLike you need to light my life\nWe can do anything you like\nI know we both can get it right tonight\nYou got your walls built up high\nI can tell by looking in your eyes\n\n[Pre-chorus:]\nYou don't understand how much you really mean to me\nI need you in my life\nYou're my necessity\nBut believe me you're everything\nThat just makes my world complete\nAnd my love is clear the only thing that I'll ever see\n\n[Chorus:]\nYou're all I ever need\nBaby, you're amazing\nYou're my angel come and save me\nYou're all I ever need\nBaby, you're amazing\nYou're my angel come and save me\n\n[2x]\nWhen it comes to you\nBaby, I'm addicted\nYou're like a drug, no rehab can fix it\nI think you're perfect, baby, even with your flaws\nYou ask what I like about you\nOoh, I love it all\n\n[Chorus 2x:]\nYou're all I ever need\nBaby, you're amazing\nYou're my angel come and save me\nYou're all I ever need\nBaby, you're amazing\nYou're my angel come and save me\n",
-      address: "23th, ayuu, shin da",
-      regularPrice: 20000600,
-      discountPrice: 600,
-      bathrooms: 4,
-      bedrooms: 9,
-      furnished: true,
-      parking: false,
-      type: "rent",
-      offer: true,
-      imageUrls: [
-        "https://firebasestorage.googleapis.com/v0/b/mern-estate-5b94a.appspot.com/o/170024487354821593.jpg?alt=media&token=8df048f8-df26-4c83-ba3f-50b09bbb5455",
-        "https://firebasestorage.googleapis.com/v0/b/mern-estate-5b94a.appspot.com/o/1700245033946bg-73.jpg?alt=media&token=fb697ef6-8cff-4095-b56b-4dcc455d550c",
-      ],
-      userRef: "65550a6bd3093930a9d2a4aa",
-      createdAt: "2023-11-17T18:18:49.103Z",
-      updatedAt: "2023-11-17T18:29:14.886Z",
-      __v: 0,
-    },
-  ]);
+  const [searchData, setSearchData] = useState([]);
+  const [formData, setFormData] = useState({
+    searchTerm: "",
+    type: "all",
+    offer: false,
+    parking: false,
+    furnished: false,
+    sort: "createdAt",
+    order: "desc",
+  });
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const searchTermUrl = searchParams.get("searchTerm");
+    const typeUrl = searchParams.get("type");
+    const offerUrl = searchParams.get("offer");
+    const parkingUrl = searchParams.get("parking");
+    const furnishedUrl = searchParams.get("furnished");
+    const sortUrl = searchParams.get("sort");
+    const orderUrl = searchParams.get("order");
+    if (
+      searchTermUrl ||
+      typeUrl ||
+      offerUrl ||
+      parkingUrl ||
+      furnishedUrl ||
+      sortUrl ||
+      orderUrl
+    ) {
+      setFormData({
+        searchTerm: searchTermUrl || "",
+        type: typeUrl || "all",
+        offer: offerUrl === "true" ? true : false,
+        parking: parkingUrl === "true" ? true : false,
+        furnished: furnishedUrl === "true" ? true : false,
+        sort: sortUrl || "createdAt",
+        order: orderUrl || "desc",
+      });
+    }
+
+    const searchAndGetData = async () => {
+      const searchQuery = searchParams.toString();
+      try {
+        setLoading(true);
+        const response = await fetch(`/api/listing/getlist?${searchQuery}`);
+        const data = await response.json();
+        setLoading(false);
+        if (data.success === false) {
+          return console.log(data.message);
+        }
+        setSearchData(data);
+        navigate(`/search?${searchQuery}`);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    searchAndGetData();
+  }, [navigate, location.search]);
+
+  const handleChange = (e) => {
+    if (e.target.name === "searchTerm" || e.target.name === "type") {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    } else if (e.target.name === "sort") {
+      const sort = e.target.value.split("_")[0] || "createdAt";
+      const order = e.target.value.split("_")[1] || "desc";
+      setFormData({ ...formData, sort, order });
+    } else {
+      setFormData({ ...formData, [e.target.name]: !formData[e.target.name] });
+    }
+  };
+
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+    params.set("searchTerm", formData.searchTerm);
+    params.set("type", formData.type);
+    params.set("offer", formData.offer);
+    params.set("parking", formData.parking);
+    params.set("furnished", formData.furnished);
+    params.set("sort", formData.sort);
+    params.set("order", formData.order);
+    const searchQuery = params.toString();
+    navigate(`/search?${searchQuery}`);
+  };
   return (
     <main className="flex flex-col md:flex-row">
       <aside className="md:w-[30%] border-b md:h-screen md:border-r shadow flex flex-col items-center gap-3 text-[17px]">
         <div className="flex w-[95%] justify-between p-4 items-center gap-2">
-          <label htmlFor="search" className="w-1/4 font-semibold">
-            Search Term:
+          <label htmlFor="searchTerm" className="w-1/4 font-semibold">
+            Keyword:
           </label>
           <input
+            value={formData?.searchTerm}
+            onChange={handleChange}
             type="text"
-            name="search"
-            id="search"
+            name="searchTerm"
+            id="searchTerm"
             placeholder="Search..."
             className="p-3 w-[70%] rounded-md shadow border-none outline-none"
           />
@@ -93,19 +109,46 @@ const SearchListing = () => {
         <div className="flex w-[95%] flex-wrap items-center gap-3 p-3">
           <span className="font-semibold">Type: </span>
           <div className="flex gap-2">
-            <input type="checkbox" name="all" className="w-5" />{" "}
+            <input
+              onChange={handleChange}
+              type="checkbox"
+              name="type"
+              value="all"
+              className="w-5"
+              checked={formData.type === "all"}
+            />{" "}
             <label htmlFor="all">Rent & Sale</label>
           </div>
           <div className="flex gap-2">
-            <input type="checkbox" name="rent" className="w-5" />{" "}
+            <input
+              onChange={handleChange}
+              type="checkbox"
+              name="type"
+              value="rent"
+              className="w-5"
+              checked={formData.type === "rent"}
+            />{" "}
             <label htmlFor="rent">Rent</label>
           </div>
           <div className="flex gap-2">
-            <input type="checkbox" name="sale" className="w-5" />{" "}
+            <input
+              onChange={handleChange}
+              type="checkbox"
+              name="type"
+              value="sale"
+              className="w-5"
+              checked={formData.type === "sale"}
+            />{" "}
             <label htmlFor="sale">Sale</label>
           </div>
           <div className="flex gap-2">
-            <input type="checkbox" name="offer" className="w-5" />{" "}
+            <input
+              onChange={handleChange}
+              checked={formData.offer}
+              type="checkbox"
+              name="offer"
+              className="w-5"
+            />{" "}
             <label htmlFor="offer">Offer</label>
           </div>
         </div>
@@ -113,24 +156,44 @@ const SearchListing = () => {
         <div className="flex w-[95%] flex-wrap p-3 gap-4 items-center">
           <span className="font-semibold">Amenities: </span>
           <div className="flex gap-2">
-            <input type="checkbox" name="parking" className="w-5" />{" "}
+            <input
+              onChange={handleChange}
+              checked={formData.parking}
+              type="checkbox"
+              name="parking"
+              className="w-5"
+            />{" "}
             <label htmlFor="parking">Parking</label>
           </div>
           <div className="flex gap-2">
-            <input type="checkbox" name="furnished" className="w-5" />{" "}
+            <input
+              onChange={handleChange}
+              checked={formData.furnished}
+              type="checkbox"
+              name="furnished"
+              className="w-5"
+            />{" "}
             <label htmlFor="furnished">Furnished</label>
           </div>
         </div>
         <div className="flex p-3 w-[95%] gap-4 items-center">
           <span className="font-semibold">Sort: </span>
-          <select name="select" className="p-3 w-[10rem] rounded-md">
-            <option value="">Asd</option>
-            <option value="">des</option>
-            <option value="">low</option>
-            <option value="">high</option>
+          <select
+            onChange={handleChange}
+            defaultValue={"createdAt_desc"}
+            name="sort"
+            className="p-3 w-[14rem] rounded-md"
+          >
+            <option value="regularPrice_desc">Price: high to low</option>
+            <option value="regularPrice_asc">Price: low to high</option>
+            <option value="createdAt_desc">Latest</option>
+            <option value="createdAt_asc">Oldest</option>
           </select>
         </div>
-        <button className="uppercase bg-[var(--text1)] text-white rounded p-3 w-[90%] m-3 hover:opacity-80 active:shadow-md">
+        <button
+          onClick={handleSearch}
+          className="uppercase bg-[var(--text1)] text-white rounded p-3 w-[90%] m-3 hover:opacity-80 active:shadow-md"
+        >
           search
         </button>
       </aside>
@@ -138,11 +201,16 @@ const SearchListing = () => {
         <h2 className="text-[26px] border-b font-semibold text-[var(--text1)] px-4">
           Listing results:
         </h2>
-        <div className="grid grid-cols-3 justify-center gap-6 my-5 mx-4">
-          {loading ? (
-            <Loader />
-          ) : (
-            searchData?.map((data) => (
+        {!loading && searchData.length === 0 && (
+          <p className="text-center p-12 text-[var(--text1)]">
+            No Listing Found!
+          </p>
+        )}
+        {loading ? (
+          <Loader />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 justify-center gap-6 my-5 mx-4">
+            {searchData?.map((data) => (
               <Link
                 to={`/listing/${data._id}`}
                 key={data._id}
@@ -195,9 +263,9 @@ const SearchListing = () => {
                   </div>
                 </div>
               </Link>
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
     </main>
   );
