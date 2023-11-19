@@ -43,7 +43,7 @@ const ImageUpload = ({ formData, setFormData }) => {
           setUploadLoading(false);
         });
     } else {
-      setUploadError("You can only upload max 6 images per listing");
+      setUploadError("You can only upload min 1 to max 6 images per listing");
       setUploadLoading(false);
     }
   };
