@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ImageUpload from "../components/ImageUpload";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const initialValue = {
   name: "",
@@ -24,6 +25,7 @@ const CreateList = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [noti, setNoti] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -54,6 +56,7 @@ const CreateList = () => {
       setLoading(false);
       setNoti("Listing Created Successfully.");
       setFormData(initialValue);
+      navigate(`/listing/${data._id}`);
     } catch (error) {
       setError(error.message);
       setLoading(false);
