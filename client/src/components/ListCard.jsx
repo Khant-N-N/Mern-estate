@@ -6,7 +6,7 @@ const ListCard = ({ data }) => {
     <Link
       to={`/listing/${data._id}`}
       key={data._id}
-      className="w-full rounded-lg flex flex-col gap-6 overflow-hidden shadow-lg relative"
+      className="w-full rounded-lg flex flex-col gap-6 overflow-hidden shadow-lg relative hover:shadow-xl"
     >
       <img
         src={data.imageUrls[0]}
