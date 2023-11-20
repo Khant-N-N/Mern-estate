@@ -8,7 +8,6 @@ import cookieParser from "cookie-parser";
 import path from "path";
 
 dotenv.config();
-const app = express();
 
 mongoose.connect(process.env.MONGO).then(() => {
     console.log("connected to mongodb")
@@ -17,6 +16,7 @@ mongoose.connect(process.env.MONGO).then(() => {
 })
 
 const __dirname = path.resolve(); //to create a static folder 
+const app = express();
 
 app.use(cookieParser());
 
