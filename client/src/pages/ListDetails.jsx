@@ -55,6 +55,7 @@ const ListDetails = () => {
               <SwiperSlide key={key}>
                 <img
                   src={url}
+                  loading="lazy"
                   alt="ig"
                   className="w-full h-[80vh] object-cover"
                 />
@@ -141,7 +142,7 @@ const ListDetails = () => {
                 </p>
               )}
             </div>
-            {currentUser._id !== detail?.userRef && !contact && (
+            {currentUser && currentUser._id !== detail?.userRef && !contact && (
               <button
                 onClick={() => setContact(!contact)}
                 className="p-3 bg-[var(--text2)] w-full rounded my-6 text-white hover:opacity-70 uppercase"

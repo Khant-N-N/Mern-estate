@@ -9,6 +9,7 @@ const ListCard = ({ data }) => {
       className="w-full rounded-lg flex flex-col gap-6 overflow-hidden shadow-lg relative hover:shadow-xl"
     >
       <img
+        loading="lazy"
         src={data.imageUrls[0]}
         alt={data.name}
         className="w-full h-[200px] object-cover hover:scale-[1.1] transition-transform"
