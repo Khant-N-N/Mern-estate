@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Loader from "./components/Loader";
 import ProtectedRoute from "./components/ProtectedRoute";
 
+const About = lazy(() => import("./pages/About"));
 const SearchListing = lazy(() => import("./pages/SearchListing"));
 const ListDetails = lazy(() => import("./pages/ListDetails"));
 const CreateList = lazy(() => import("./pages/CreateList"));
@@ -23,6 +24,8 @@ const App = () => {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/listing/:id" element={<ListDetails />} />
           <Route path="/search" element={<SearchListing />} />
+          <Route path="/about" element={<About />} />
+
           <Route
             path="/account"
             element={
