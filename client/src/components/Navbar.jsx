@@ -26,8 +26,8 @@ const Navbar = () => {
 
   return (
     <nav className="flex justify-around items-center py-3 bg-[var(--sec)] z-40">
-      <Link to="/" className="text-[var(--text1)]">
-        Logo
+      <Link to="/" className="text-[var(--text1)] font-bold">
+        <span className="text-[var(--text2)]">JJ</span> Estate
       </Link>
       <form onSubmit={handleSubmit} className="relative">
         <input
